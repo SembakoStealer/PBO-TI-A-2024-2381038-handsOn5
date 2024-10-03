@@ -1,4 +1,6 @@
+import java.awt.event.WindowFocusListener;
 import java.util.Scanner;
+
 
 public class main {
     public static String[] todos = new String[2];
@@ -105,12 +107,12 @@ public class main {
 
             switch (selectedMenu){
                 case "1" :
-                    //showMenuAddTodoList();
+                    showMenuAddTodoList();
                     System.out.println("Menu add todo list");
                     break;
                 case "2" :
                     System.out.println("Menu remove todo list");
-                    //showMenuRemoveTodoList();
+                    showRemoveTodoList();
                     break;
 
                 case "3" :
@@ -125,6 +127,45 @@ public class main {
                 default:
                     System.out.println("Pilihannya Salah");
             }
+        }
+    }
+    public static void  showMenuAddTodoList(){
+        System.out.println("Menambah todo list");
+        String todo = input("todo (x jika batal)");
+        if(todo.equals("x")){
+            //batal
+        }else{
+            addToDoList(todo);
+        }
+    }
+    public static void showRemoveTodoList(){
+        System.out.println("Menghapus todo list");
+        String todoYangDipilih =  input("nomor todo yang dihapus (x jika batal)");
+        if(todoYangDipilih.equals("x")){
+            //batal;
+        } else{
+            boolean success = removeToDoList(Integer.valueOf(todoYangDipilih));
+            if(!success){
+                System.out.println("Gagal menghapus todo list");
+            }
+        }
+    }
+
+    public static void  showMenuEditTodoList(){
+        System.out.println("Mengedit todo list");
+        String selectedTodo = input("Masukin nomor todo (x jika batal)");
+        if(selectedTodo.equals("x")){
+            return;
+        }
+        String newTodo = input("Masukin todo yang baru (x jika batal)");
+        if(newTodo.equals("x")){
+            return;
+        }
+        boolean isEditTodoSuccess = editTodolist(Integer.valueOf(selectedTodo), newTodo);
+        if(isEditTodoSuccess){
+            System.out.println("Behasil mengedit todo");
+        } else{
+            System.out.println("Gagal mengedit todo");
         }
     }
 }
